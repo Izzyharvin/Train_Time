@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,35 +8,48 @@
     <link rel="stylesheet" href="./assets/styles/style.css">
     <title>Train Time</title>
 </head>
+
 <body>
     <div class="header">
         <h1><strong>Anytime is Train Time</strong></h1>
-        <h3><strong>Choo Choo Chee Chee</strong></h3>
+        <h2><strong>Choo Choo Chee Chee</strong></h2>
     </div>
     <div class="timesoftrains">
         <p>Current Train Schedule</p>
         <table id="table">
             <tr>
-              <th>Train Time</th>
-              <th>Destination</th>
-              <td>First Train Time(HH:mm = military time)</td>
-              <td>Frequency(min)</td>
+                <th>Train Time</th>
+                <th>Destination</th>
+                <th>First Train Time(HH:mm = military time)</th>
+                <th>Frequency(min)</th>
             </tr>
         </table>
         <hr>
     </div>
+    </div>
     <div class="addtrain">
         <p>Add Train</p>
-        <label>Train Name</label><br>
-        <input type="text" id="trainname" placeholder="Train Name..."><br>
-        <label>Destination</label><br>
-        <input type="text" id="trainname" placeholder="Train Name..."><br>
-        <label>First Train Time(HH:mm = military time)</label><br>
-        <input type="text" id="trainname" placeholder="Train Name..."><br>
-        <label>Frequency(min)</label><br>
-        <input type="text" id="trainname" placeholder="Train Name..."><br>
-        <button class="submit">Submit</button>
+        <div class="section">
+            <label>Train Name</label><br>
+            <input type="text" id="trainname-input" placeholder="Train Name..."><br>
+        </div>
+        <div class="section">
+            <label>Destination</label><br>
+            <input type="text" id="destination-input" placeholder="Destination..."><br>
+        </div>
+        <div class="section">
+            <label>First Train Time(HH:mm = military time)</label><br>
+            <input type="text" id="firsttraintime-input" placeholder="First Train Name..."><br>
+        </div>
+        <div class="section">
+            <label>Frequency(min)</label><br>
+            <input type="text" id="frequency-input" placeholder="Frequency..."><br>
+        </div>
+        <div class="section">
+            <button class="submit">Submit</button>
+        </div>
     </div>
     <script src="./assets/javascript/javascript.js"></script>
 </body>
+
 </html>
