@@ -22,7 +22,7 @@ $("#submit").on("click", function(event) {
   //Grabs user input
   var trainName = $("#trainname-input").val().trim();
   var trainDestination = $("#destination-input").val().trim();
-  var trainFirstTrainTime = moment($("#firsttraintime-input").val().trim(), "HH:mm").format("X");
+  var trainFirstTrainTime = moment($("#firsttraintime-input").val().trim(), "HH:mm").format("LT");
   var trainFrequency = $("#frequency-input").val().trim();
 
 
@@ -43,7 +43,7 @@ $("#submit").on("click", function(event) {
   console.log(newTrain.TrainFirstTime);
   console.log(newTrain.Frequency);
 
-  alert("Employee successfully added");
+  alert("Train successfully added");
 
   // Clears all of the text-boxes
   $("#trainname-input").val("");
@@ -59,6 +59,8 @@ trainRef.on("child_added", function(childSnapshot) {
   // Store everything into a variable.
   var trainName = childSnapshot.val().TrainName;
   var trainDestination = childSnapshot.val().Destination;
+  var nextTrain;
+  var tMinutesTillTrain;
   var trainFirstTrainTime = childSnapshot.val().TrainFirstTime;
   var trainFrequency = childSnapshot.val().Frequency;
 
@@ -71,6 +73,12 @@ trainRef.on("child_added", function(childSnapshot) {
   var startMoment = moment.unix(trainFirstTrainTime);
   var trainFirstTrainTime = startMoment.format("HH:mm");
 
+  // Assumptions
+  var tFrequency = trainFrequency;
+
+  // Time is 3:30 AM
+  var firstTime = trainFirstTrainTime;
+
   // Calculate the months worked using hardcore math
   // To calculate the months worked
   // First Time (pushed back 1 year to make sure it comes before current time)
@@ -79,7 +87,7 @@ trainRef.on("child_added", function(childSnapshot) {
 
   // Current Time
   var currentTime = moment();
-  console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+  console.log("CURRENT TIME: " + moment(currentTime).format("HH:mm"));
 
   // Difference between the times
   var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
@@ -90,19 +98,20 @@ trainRef.on("child_added", function(childSnapshot) {
   console.log(tRemainder);
 
   // Minute Until Train
-  var tMinutesTillTrain = tFrequency - tRemainder;
+  tMinutesTillTrain = tFrequency - tRemainder;
   console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
 
   // Next Train
-  var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+  nextTrain = moment().add(tMinutesTillTrain, "minutes");
   console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
 
   // Create the new row
   var newRow = $("<tr>").append(
     $("<td>").text(trainName),
     $("<td>").text(trainDestination),
-    $("<td>").text(trainFirstTrainTime),
     $("<td>").text(trainFrequency),
+    $("<td>").text(moment(nextTrain).format("LT")),
+    $("<td>").text(tMinutesTillTrain),
   );
 
   // Append the new row to the table
